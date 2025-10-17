@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartPoint - Inovação em Tecnologia</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- ==================== CABEÇALHO ==================== -->
+  <header>
+    <div class="logo">SmartPoint</div>
+    <nav>
+      <ul>
+        <li><a href="lançamentos.html">Lançamentos</a></li>
+        <li><a href="#">Celulares</a></li>
+        <li><a href="#">Fones</a></li>
+        <li><a href="#">Relógios</a></li>
+        <li><a href="#">Computadores</a></li>
+        <li><a href="#">Acessórios</a></li>
+      </ul>
+    </nav>
+    <div class="header-right">
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar produtos...">
+        <button>🔍</button>
+      </div>
+      <div class="action-buttons">
+        <a href="login.html" class="btn-login">Login</a>
+        <a href="cadastro.html" class="btn-cadastro">Cadastro</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="content">
+      <h1>Bem-vindo à SmartPoint</h1>
+      <p>Explore o universo da tecnologia com estilo. Encontre os melhores lançamentos, celulares, fones, relógios e muito mais com o padrão SmartPoint.</p>
+      <a href="#" class="btn-lancamentos">Ver Lançamentos</a>
+    </div>
+  </section>
+
+  <!-- ==================== PRODUTOS ==================== -->
+  <main class="produtos">
+    <h2>Produtos em Destaque</h2>
+    <div class="container">
+      <div class="box">
+        <img src="fotos/celulares/ip17-pro-max.png" alt="iPhone 17 Pro Max">
+        <p>iPhone 17 Pro Max</p>
+      </div>
+      <div class="box">
+        <img src="fotos/celulares/edge 50 ultra.webp" alt="Motorola Edge 50 Ultra">
+        <p>Motorola Edge 50 Ultra</p>
+      </div>
+      <div class="box">
+        <img src="fotos/celulares/galaxy-s24.png" alt="Samsung Galaxy S24+">
+        <p>Galaxy S24+</p>
+      </div>
+      <div class="box">
+        <img src="fotos/celulares/14ultra.png" alt="Xiaomi 14 Ultra">
+        <p>Xiaomi 14 Ultra</p>
+      </div>
+    </div>
+  </main>
+
+ <!-- ==================== ROLETA POP-UP ==================== -->
+<div id="popupRoleta">
+  <div class="popup-content">
+    <h2>Gire a Roleta e Ganhe!</h2>
+    <div class="roleta-container">
+      <canvas id="roletaCanvas" width="300" height="300"></canvas>
+      <div class="seta-indicadora">▼</div>
+    </div>
+    <p id="mensagemPremio"></p>
+    <button id="btnGirar">Girar</button>
+    <button id="btnFechar">✖</button>
+  </div>
+</div>
+
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>SmartPoint</h3>
+        <p>Inovação e tecnologia ao seu alcance. Explore o futuro com a SmartPoint!</p>
+      </div>
+      <div class="footer-col">
+        <h4>Atendimento</h4>
+        <ul>
+          <li><a href="#">Fale Conosco</a></li>
+          <li><a href="#">Suporte Técnico</a></li>
+          <li><a href="#">Trocas e Devoluções</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Institucional</h4>
+        <ul>
+          <li><a href="#">Sobre Nós</a></li>
+          <li><a href="#">Política de Privacidade</a></li>
+          <li><a href="#">Termos de Uso</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Redes Sociais</h4>
+        <div class="socials">
+          <a href="#"><i class="fa-solid fa-phone"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 SmartPoint. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="roleta.js"></script>
+</body>
+</html>
