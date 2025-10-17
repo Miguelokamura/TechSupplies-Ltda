@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finalizar Compra - SmartPoint</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #f6f5fb 0%, #ffffff 100%);
+      color: #111;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 40px;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      background: linear-gradient(90deg, #4b0082, #6f00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .voltar {
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(75,0,130,0.12);
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      text-decoration: none;
+      color: #000;
+    }
+    .container {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 30px;
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    h2 {
+      font-size: 1.5rem;
+      color: #4b0082;
+      margin-bottom: 10px;
+    }
+    .produto-resumo {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 20px;
+    }
+    .produto-resumo img {
+      width: 120px;
+      border-radius: 12px;
+    }
+    .produto-resumo .info {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .produto-resumo .info span {
+      font-size: 0.95rem;
+      color: #555;
+    }
+    .preco {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(90deg,#4b0082,#6f00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .pagamento, .endereco, .frete {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    select, input {
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+      width: 100%;
+    }
+    .frete button, .finalizar {
+      background: linear-gradient(90deg,#4b0082,#6f00ff);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: fit-content;
+    }
+    .finalizar a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+    .frete button:hover, .finalizar:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(111,0,255,0.3);
+    }
+    .resultado-frete {
+      font-size: 0.95rem;
+      color: #333;
+      margin-top: 6px;
+    }
+    @media (max-width: 768px) {
+      .produto-resumo {
+        flex-direction: column;
+        text-align: center;
+      }
+      .produto-resumo img {
+        width: 180px;
+      }
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">SmartPoint</div>
+    <a class="voltar" href="t13pro.html">← Voltar</a>
+  </header>
+
+  <div class="container">
+    <div class="produto-resumo">
+      <img src="fotos/celulares/venda-cell/t13pro-preto1.png" alt="Xiaomi T13 Pro">
+      <div class="info">
+        <h2>Xiaomi T13 Pro</h2>
+        <span>Cor: Preto</span>
+        <span>Configuração: 256GB / 8GB RAM</span>
+        <p class="preco">R$ 7.499,00</p>
+      </div>
+    </div>
+
+    <div class="pagamento">
+      <h2>Forma de Pagamento 💳</h2>
+      <select id="forma-pagamento">
+        <option value="cartao">Cartão de Crédito</option>
+        <option value="pix">Pix</option>
+        <option value="boleto">Boleto Bancário</option>
+      </select>
+
+      <div id="parcelamento-container">
+        <label for="parcelas">Parcelamento (sem juros):</label>
+        <select id="parcelas"></select>
+      </div>
+    </div>
+
+    <div class="frete">
+      <h2>Calcular Frete 🚚</h2>
+      <input type="text" id="cep" placeholder="Digite seu CEP (ex: 01001-000)">
+      <button id="btn-frete">Calcular Frete</button>
+      <div class="resultado-frete" id="resultado-frete"></div>
+    </div>
+
+    <div class="endereco">
+      <h2>Endereço de Entrega 🏠</h2>
+      <input type="text" placeholder="Rua" id="rua">
+      <input type="text" placeholder="Número" id="numero">
+      <input type="text" placeholder="Cidade" id="cidade">
+      <input type="text" placeholder="Estado (UF)" id="uf">
+    </div>
+
+    <button class="finalizar" id="btn-finalizar">
+      <a href="/xiaomi/confirmação.html">Finalizar compra</a>
+    </button>
+  </div>
+
+  <script>
+    // ======== Parcelamento ========
+    const parcelasSelect = document.getElementById("parcelas");
+    const precoTotal = 7499;
+
+    function atualizarParcelas() {
+      parcelasSelect.innerHTML = "";
+      for (let i = 1; i <= 12; i++) {
+        let valorParcela = (precoTotal / i).toFixed(2);
+        let option = document.createElement("option");
+        option.textContent = `${i}x de R$ ${parseFloat(valorParcela).toLocaleString('pt-BR')} (sem juros)`;
+        parcelasSelect.appendChild(option);
+      }
+    }
+    atualizarParcelas();
+
+    // ======== Simulador de Frete ========
+    const btnFrete = document.getElementById("btn-frete");
+    const cepInput = document.getElementById("cep");
+    const resultadoFrete = document.getElementById("resultado-frete");
+
+    btnFrete.addEventListener("click", () => {
+      const cep = cepInput.value.trim();
+      if (cep === "") {
+        resultadoFrete.textContent = "❌ Digite um CEP válido!";
+        return;
+      }
+
+      const prefixo = parseInt(cep.substring(0, 2));
+      let valorFrete = 0;
+      let prazo = 0;
+
+      if (prefixo <= 20) { valorFrete = 39.90; prazo = 3; }
+      else if (prefixo <= 50) { valorFrete = 49.90; prazo = 5; }
+      else if (prefixo <= 70) { valorFrete = 59.90; prazo = 7; }
+      else { valorFrete = 69.90; prazo = 9; }
+
+      resultadoFrete.textContent = `✅ Frete estimado: R$ ${valorFrete.toFixed(2)} | Prazo: ${prazo} dias úteis.`;
+    });
+
+    // ======== Finalizar Compra ========
+    const btnFinalizar = document.getElementById("btn-finalizar");
+
+    btnFinalizar.addEventListener("click", () => {
+      const rua = document.getElementById("rua").value.trim();
+      const numero = document.getElementById("numero").value.trim();
+      const cidade = document.getElementById("cidade").value.trim();
+      const uf = document.getElementById("uf").value.trim();
+
+      if (!rua || !numero || !cidade || !uf) {
+        alert("❌ Por favor, preencha todos os campos do endereço.");
+        return;
+      }
+
+      // Redireciona para a página de confirmação de compra
+      window.location.href = "/xiaomi/confirmação.html";
+    });
+  </script>
+</body>
+</html>

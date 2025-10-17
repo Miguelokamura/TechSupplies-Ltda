@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Watch S1 Active - SmartPoint</title>
+
+  <!-- Fonte Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RESET GERAL ===== */
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #f6f5fb 0%, #ffffff 100%);
+      color: #111;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ===== CABEÇALHO ===== */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      background: linear-gradient(90deg, #4b0082, #6f00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .voltar {
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(75,0,130,0.12);
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      text-decoration: none;
+      color: #000;
+    }
+
+    /* ===== CONTAINER DO PRODUTO ===== */
+    .produto-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 60px;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    /* ===== INFORMAÇÕES DO PRODUTO ===== */
+    .produto-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 300px;
+      max-width: 500px;
+    }
+
+    .produto-info h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+    }
+
+    .descricao {
+      font-size: 1rem;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .preco {
+      font-size: 1.8rem;
+      font-weight: 600;
+      background: linear-gradient(90deg,#4b0082,#6f00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ===== SELEÇÃO DE CORES E MEMÓRIA ===== */
+    .cores, .memorias, .armazenamentos {
+      margin-top: 15px;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .cor {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .cor:hover {
+      transform: scale(1.15);
+      border: 2px solid #4b0082;
+    }
+
+    .cor.ativa {
+      border: 3px solid #6f00ff;
+      transform: scale(1.2);
+    }
+
+    .memoria {
+      border: 1px solid rgba(75,0,130,0.2);
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .memoria:hover {
+      transform: scale(1.08);
+      border-color: #4b0082;
+    }
+
+    .memoria.ativa {
+      background: linear-gradient(90deg,#4b0082,#6f00ff);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(111,0,255,0.25);
+      transform: scale(1.1);
+    }
+
+    /* ===== BOTÃO DE COMPRA ===== */
+    .botao-comprar {
+      margin-top: 20px;
+      background: linear-gradient(90deg,#4b0082,#6f00ff);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 28px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: fit-content;
+      box-shadow: 0 4px 14px rgba(111,0,255,0.3);
+    }
+
+    .botao-comprar:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(111,0,255,0.4);
+      filter: brightness(1.1);
+    }
+
+    .botao-comprar a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ===== CARROSSEL DE IMAGENS ===== */
+    .carrossel {
+      position: relative;
+      width: 400px;
+      max-width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+    }
+
+    .slide.ativo {
+      display: block;
+      animation: fadeIn 0.6s ease;
+    }
+
+    /* Animação suave ao trocar de imagem */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.98);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
+    video {
+      width: 100%;
+      border-radius: 20px;
+    }
+
+    /* ===== BOTÕES DO CARROSSEL ===== */
+    .seta {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.8);
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: background 0.3s;
+    }
+
+    .seta:hover {
+      background: rgba(255,255,255,1);
+    }
+
+    .seta.esquerda {left: 10px;}
+    .seta.direita {right: 10px;}
+
+    /* ===== RESPONSIVIDADE ===== */
+    @media(max-width:900px){
+      .produto-container{flex-direction:column;align-items:center;text-align:center;}
+      .carrossel{width:320px;}
+      .produto-info{align-items:center;}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== CABEÇALHO ===== -->
+  <header>
+    <div class="logo">SmartPoint</div>
+    <a class="voltar" href="lançamentos.html">← Voltar</a>
+  </header>
+
+  <!-- ===== SEÇÃO PRINCIPAL ===== -->
+  <section class="produto-container">
+
+    <!-- INFORMAÇÕES SOBRE O PRODUTO -->
+    <div class="produto-info">
+      <h1>Mi Watch S1 Active</h1>
+      <p class="descricao">
+        O Mi Watch S1 Active traz o equilíbrio perfeito entre estilo e tecnologia. 
+        Com tela AMOLED de 1,43", mais de 100 modos esportivos, monitoramento avançado de saúde e bateria que dura até 12 dias, 
+        é o smartwatch ideal para acompanhar sua rotina com elegância e desempenho.
+      </p>
+
+      <!-- Preço inicial -->
+      <p class="preco" id="preco">R$ 1.199,00</p>
+
+      <!-- SELEÇÃO DE CORES -->
+      <div class="cores">
+        <span>Escolha a cor:</span>
+        <div class="cor ativa" data-cor="preto" style="background: linear-gradient(180deg,#000000,#434343);"></div>
+        <div class="cor" data-cor="cinza" style="background: linear-gradient(180deg,#bdbdbd,#e0e0e0);"></div>
+        <div class="cor" data-cor="violeta" style="background: linear-gradient(180deg,#4b0082,#9b30ff);"></div>
+      </div>
+
+      <!-- SELEÇÃO DE ARMAZENAMENTO -->
+      <div class="armazenamentos">
+        <span>Armazenamento:</span>
+        <div class="memoria ativa" data-memoria="4gb" data-preco="1199">4 GB</div>
+        <div class="memoria" data-memoria="8gb" data-preco="1399">8 GB</div>
+      </div>
+
+      <!-- BOTÃO DE COMPRA -->
+      <button class="botao-comprar"><a href="/xiaomi/comprar-miwatchs1active.html">Comprar agora</a></button>
+    </div>
+
+    <!-- ===== CARROSSEL DE IMAGENS ===== -->
+    <div class="carrossel" id="carrossel">
+
+      <!-- COR: PRETO -->
+      <div class="slides" data-cor="preto">
+        <img class="slide ativo" src="fotos/relogios/miwatchs1active-preto1.png" alt="Mi Watch S1 Active Preto 1">
+        <img class="slide" src="fotos/relogios/miwatchs1active-preto2.png" alt="Mi Watch S1 Active Preto 2">
+        <img class="slide" src="fotos/relogios/miwatchs1active-preto3.png" alt="Mi Watch S1 Active Preto 3">
+        <video class="slide" src="fotos/relogios/videos-venda/miwatchs1active-preto.mp4" autoplay muted loop></video>
+      </div>
+
+      <!-- COR: CINZA -->
+      <div class="slides" data-cor="cinza" style="display:none;">
+        <img class="slide ativo" src="fotos/relogios/miwatchs1active-cinza1.png" alt="Mi Watch S1 Active Cinza 1">
+        <img class="slide" src="fotos/relogios/miwatchs1active-cinza2.png" alt="Mi Watch S1 Active Cinza 2">
+        <img class="slide" src="fotos/relogios/miwatchs1active-cinza3.png" alt="Mi Watch S1 Active Cinza 3">
+        <video class="slide" src="fotos/relogios/videos-venda/miwatchs1active-cinza.mp4" autoplay muted loop></video>
+      </div>
+
+      <!-- COR: VIOLETA -->
+      <div class="slides" data-cor="violeta" style="display:none;">
+        <img class="slide ativo" src="fotos/relogios/miwatchs1active-violeta1.png" alt="Mi Watch S1 Active Violeta 1">
+        <img class="slide" src="fotos/relogios/miwatchs1active-violeta2.png" alt="Mi Watch S1 Active Violeta 2">
+        <img class="slide" src="fotos/relogios/miwatchs1active-violeta3.png" alt="Mi Watch S1 Active Violeta 3">
+        <video class="slide" src="fotos/relogios/videos-venda/miwatchs1active-violeta.mp4" autoplay muted loop></video>
+      </div>
+
+      <!-- BOTÕES DE NAVEGAÇÃO -->
+      <button class="seta esquerda">&#10094;</button>
+      <button class="seta direita">&#10095;</button>
+    </div>
+  </section>
+
+  <!-- ===== SCRIPT DO SITE ===== -->
+  <script>
+    // ===== VARIÁVEIS =====
+    const preco = document.getElementById("preco");
+    const cores = document.querySelectorAll(".cor");
+    const memorias = document.querySelectorAll(".memoria");
+    const carrossel = document.getElementById("carrossel");
+    const setaEsq = carrossel.querySelector(".seta.esquerda");
+    const setaDir = carrossel.querySelector(".seta.direita");
+
+    // Cor e slide iniciais
+    let corAtual = "preto";
+    let memoriaAtual = "4gb";
+    let slideIndex = 0;
+    let interval;
+
+    // ===== ALTERAÇÃO DE COR =====
+    function mostrarCor(cor) {
+      document.querySelectorAll(".slides").forEach(slideGroup => {
+        slideGroup.style.display = slideGroup.dataset.cor === cor ? "block" : "none";
+      });
+      corAtual = cor;
+      slideIndex = 0;
+      atualizarSlide();
+    }
+
+    cores.forEach(cor => {
+      cor.addEventListener("click", () => {
+        cores.forEach(c => c.classList.remove("ativa"));
+        cor.classList.add("ativa");
+        mostrarCor(cor.dataset.cor);
+      });
+    });
+
+    // ===== ALTERAÇÃO DE MEMÓRIA =====
+    memorias.forEach(memoria => {
+      memoria.addEventListener("click", () => {
+        memorias.forEach(m => m.classList.remove("ativa"));
+        memoria.classList.add("ativa");
+        memoriaAtual = memoria.dataset.memoria;
+
+        // Atualiza o preço
+        const novoPreco = memoria.dataset.preco;
+        preco.textContent = `R$ ${parseInt(novoPreco).toLocaleString('pt-BR')},00`;
+      });
+    });
+
+    // ===== FUNÇÕES DO CARROSSEL =====
+    function atualizarSlide() {
+      const slides = document.querySelectorAll(`.slides[data-cor="${corAtual}"] .slide`);
+      slides.forEach(s => s.classList.remove("ativo"));
+      slides[slideIndex].classList.add("ativo");
+    }
+
+    function proximoSlide() {
+      const slides = document.querySelectorAll(`.slides[data-cor="${corAtual}"] .slide`);
+      slideIndex = (slideIndex + 1) % slides.length;
+      atualizarSlide();
+    }
+
+    function anteriorSlide() {
+      const slides = document.querySelectorAll(`.slides[data-cor="${corAtual}"] .slide`);
+      slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+      atualizarSlide();
+    }
+
+    // Botões de navegação
+    setaDir.addEventListener("click", proximoSlide);
+    setaEsq.addEventListener("click", anteriorSlide);
+
+    // Intervalo automático entre slides
+    interval = setInterval(proximoSlide, 20000);
+  </script>
+</body>
+</html>

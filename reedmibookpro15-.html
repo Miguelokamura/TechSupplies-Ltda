@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RedmiBook 15 Pro - SmartPoint</title>
+
+  <!-- Fonte moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==================== RESET E ESTILO BASE ==================== */
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #f6f5fb 0%, #ffffff 100%);
+      color: #111;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ==================== CABEÇALHO ==================== */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      background: linear-gradient(90deg, #4b0082, #6f00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .voltar {
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(75,0,130,0.12);
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      text-decoration: none;
+      color: #000;
+    }
+
+    /* ==================== CONTEÚDO PRINCIPAL ==================== */
+    .produto-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 60px;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .produto-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 300px;
+      max-width: 500px;
+    }
+
+    .produto-info h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+    }
+
+    .descricao {
+      font-size: 1rem;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .preco {
+      font-size: 1.8rem;
+      font-weight: 600;
+      background: linear-gradient(90deg,#4b0082,#6f00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ==================== BOTÕES INTERATIVOS ==================== */
+    .opcoes {margin-top: 15px;}
+    .cores, .memorias, .processadores {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    /* Cores */
+    .cor {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .cor:hover {
+      transform: scale(1.15);
+      border: 2px solid #4b0082;
+    }
+
+    .cor.ativa {
+      border: 3px solid #6f00ff;
+      transform: scale(1.2);
+    }
+
+    /* Memórias e processadores */
+    .memoria, .processador {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 2px solid #ccc;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .memoria:hover, .processador:hover {
+      border-color: #6f00ff;
+      transform: scale(1.05);
+    }
+
+    .memoria.ativa, .processador.ativa {
+      background: linear-gradient(90deg,#4b0082,#6f00ff);
+      color: #fff;
+      border-color: transparent;
+      transform: scale(1.1);
+    }
+
+    /* Botão comprar */
+    .botao-comprar {
+      margin-top: 20px;
+      background: linear-gradient(90deg,#4b0082,#6f00ff);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 28px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: fit-content;
+      box-shadow: 0 4px 14px rgba(111,0,255,0.3);
+    }
+
+    .botao-comprar:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(111,0,255,0.4);
+      filter: brightness(1.1);
+    }
+
+    .botao-comprar a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ==================== CARROSSEL ==================== */
+    .carrossel {
+      position: relative;
+      width: 400px;
+      max-width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+    }
+
+    .slide.ativo {
+      display: block;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.98);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
+    video {
+      width: 100%;
+      border-radius: 20px;
+    }
+
+    .seta {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.8);
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: background 0.3s;
+    }
+
+    .seta:hover {
+      background: rgba(255,255,255,1);
+    }
+
+    .seta.esquerda {left: 10px;}
+    .seta.direita {right: 10px;}
+
+    @media(max-width:900px){
+      .produto-container{flex-direction:column;align-items:center;text-align:center;}
+      .carrossel{width:320px;}
+      .produto-info{align-items:center;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">SmartPoint</div>
+    <a class="voltar" href="laptops.html">← Voltar</a>
+  </header>
+
+  <section class="produto-container">
+    <div class="produto-info">
+      <h1>RedmiBook 15 Pro</h1>
+      <p class="descricao">
+        O RedmiBook 15 Pro oferece alto desempenho e elegância. Equipado com processadores Intel de 11ª geração, SSD ultrarrápido e design premium em alumínio, é perfeito para produtividade e entretenimento.
+      </p>
+      <p class="preco" id="preco">R$ 4.999,00</p>
+
+      <!-- Cores -->
+      <div class="opcoes">
+        <span>Escolha a cor:</span>
+        <div class="cores">
+          <div class="cor ativa" data-cor="grafite" style="background: linear-gradient(180deg,#2e2e2e,#555);"></div>
+          <div class="cor" data-cor="prata" style="background: linear-gradient(180deg,#dcdcdc,#f5f5f5);"></div>
+        </div>
+      </div>
+
+      <!-- Processadores -->
+      <div class="opcoes">
+        <span>Processador:</span>
+        <div class="processadores">
+          <div class="processador ativa" data-proc="i5">Intel i5</div>
+          <div class="processador" data-proc="i7">Intel i7</div>
+        </div>
+      </div>
+
+      <!-- Armazenamento -->
+      <div class="opcoes">
+        <span>Armazenamento:</span>
+        <div class="memorias">
+          <div class="memoria ativa" data-memoria="256">256 GB SSD</div>
+          <div class="memoria" data-memoria="512">512 GB SSD</div>
+        </div>
+      </div>
+
+      <button class="botao-comprar"><a href="/xiaomi/comprar-reedmibook-pro-15.html">Comprar agora</a></button>
+    </div>
+
+    <!-- ==================== CARROSSEL ==================== -->
+    <div class="carrossel" id="carrossel">
+      <!-- GRAFITE -->
+      <div class="slides" data-cor="grafite">
+        <img class="slide ativo" src="fotos/laptops/redmibook15pro-grafite1.png" alt="RedmiBook 15 Pro Grafite 1">
+        <img class="slide" src="fotos/laptops/redmibook15pro-grafite2.png" alt="RedmiBook 15 Pro Grafite 2">
+        <video class="slide" src="fotos/laptops/videos/redmibook15pro-grafite.mp4" autoplay muted loop></video>
+      </div>
+
+      <!-- PRATA -->
+      <div class="slides" data-cor="prata" style="display:none;">
+        <img class="slide ativo" src="fotos/laptops/redmibook15pro-prata1.png" alt="RedmiBook 15 Pro Prata 1">
+        <img class="slide" src="fotos/laptops/redmibook15pro-prata2.png" alt="RedmiBook 15 Pro Prata 2">
+        <video class="slide" src="fotos/laptops/videos/redmibook15pro-prata.mp4" autoplay muted loop></video>
+      </div>
+
+      <!-- Setas -->
+      <button class="seta esquerda">&#10094;</button>
+      <button class="seta direita">&#10095;</button>
+    </div>
+  </section>
+
+  <script>
+    // ELEMENTOS DOM
+    const preco = document.getElementById("preco");
+    const memorias = document.querySelectorAll(".memoria");
+    const processadores = document.querySelectorAll(".processador");
+    const cores = document.querySelectorAll(".cor");
+    const carrossel = document.getElementById("carrossel");
+    const setaEsq = carrossel.querySelector(".seta.esquerda");
+    const setaDir = carrossel.querySelector(".seta.direita");
+
+    // ESTADOS INICIAIS
+    let corAtual = "grafite";
+    let slideIndex = 0;
+    let procAtual = "i5";
+    let memoriaAtual = "256";
+    let interval;
+
+    // TABELA DE PREÇOS: combinação processador + armazenamento
+    const precos = {
+      i5: {256: 4999, 512: 5499},
+      i7: {256: 5599, 512: 6099}
+    };
+
+    // ATUALIZA O PREÇO
+    function atualizarPreco() {
+      const valor = precos[procAtual][memoriaAtual];
+      preco.textContent = `R$ ${valor.toLocaleString('pt-BR')},00`;
+    }
+
+    // MUDAR MEMÓRIA
+    memorias.forEach(memoria => {
+      memoria.addEventListener("click", () => {
+        memorias.forEach(m => m.classList.remove("ativa"));
+        memoria.classList.add("ativa");
+        memoriaAtual = memoria.dataset.memoria;
+        atualizarPreco();
+      });
+    });
+
+    // MUDAR PROCESSADOR
+    processadores.forEach(proc => {
+      proc.addEventListener("click", () => {
+        processadores.forEach(p => p.classList.remove("ativa"));
+        proc.classList.add("ativa");
+        procAtual = proc.dataset.proc;
+        atualizarPreco();
+      });
+    });
+
+    // MUDAR COR
+    function mostrarCor(cor) {
+      document.querySelectorAll(".slides").forEach(grupo => {
+        grupo.style.display = grupo.dataset.cor === cor ? "block" : "none";
+      });
+      corAtual = cor;
+      slideIndex = 0;
+      atualizarSlide();
+    }
+
+    cores.forEach(cor => {
+      cor.addEventListener("click", () => {
+        cores.forEach(c => c.classList.remove("ativa"));
+        cor.classList.add("ativa");
+        mostrarCor(cor.dataset.cor);
+      });
+    });
+
+    // CARROSSEL
+    function atualizarSlide() {
+      const slides = document.querySelectorAll(`.slides[data-cor="${corAtual}"] .slide`);
+      slides.forEach(s => s.classList.remove("ativo"));
+      slides[slideIndex].classList.add("ativo");
+    }
+
+    function proximoSlide() {
+      const slides = document.querySelectorAll(`.slides[data-cor="${corAtual}"] .slide`);
+      slideIndex = (slideIndex + 1) % slides.length;
+      atualizarSlide();
+    }
+
+    function anteriorSlide() {
+      const slides = document.querySelectorAll(`.slides[data-cor="${corAtual}"] .slide`);
+      slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+      atualizarSlide();
+    }
+
+    setaDir.addEventListener("click", proximoSlide);
+    setaEsq.addEventListener("click", anteriorSlide);
+
+    interval = setInterval(proximoSlide, 20000);
+  </script>
+</body>
+</html>

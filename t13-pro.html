@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xiaomi 13T Pro - SmartPoint</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #f6f5fb 0%, #ffffff 100%);
+      color: #111;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      background: linear-gradient(90deg, #4b0082, #6f00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .voltar {
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(75,0,130,0.12);
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      text-decoration: none;
+      color: #000;
+    }
+
+    .produto-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 60px;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .produto-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 300px;
+      max-width: 500px;
+    }
+
+    .produto-info h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+    }
+
+    .descricao {
+      font-size: 1rem;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .preco {
+      font-size: 1.8rem;
+      font-weight: 600;
+      background: linear-gradient(90deg,#4b0082,#6f00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cores, .memorias {
+      margin-top: 15px;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .cor {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .cor:hover {
+      transform: scale(1.15);
+      border: 2px solid #4b0082;
+    }
+
+    .cor.ativa {
+      border: 3px solid #6f00ff;
+      transform: scale(1.2);
+    }
+
+    .memoria {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 2px solid #ccc;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .memoria:hover {
+      border-color: #6f00ff;
+      transform: scale(1.05);
+    }
+
+    .memoria.ativa {
+      background: linear-gradient(90deg,#4b0082,#6f00ff);
+      color: #fff;
+      border-color: transparent;
+      transform: scale(1.1);
+    }
+
+    /* 🔹 BOTÃO COMPRAR AGORA (com degradê roxo e texto branco) */
+    .botao-comprar {
+      margin-top: 20px;
+      background: linear-gradient(90deg,#4b0082,#6f00ff);
+      color: #ffffff; /* texto branco */
+      border: none;
+      border-radius: 12px;
+      padding: 14px 28px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: fit-content;
+      box-shadow: 0 4px 14px rgba(111,0,255,0.3);
+    }
+
+    .botao-comprar:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(111,0,255,0.4);
+      filter: brightness(1.1);
+    }
+
+    .botao-comprar a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Carrossel */
+    .carrossel {
+      position: relative;
+      width: 400px;
+      max-width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+    }
+
+    .slide.ativo {
+      display: block;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.98);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
+    video {
+      width: 100%;
+      border-radius: 20px;
+    }
+
+    .seta {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.8);
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: background 0.3s;
+    }
+
+    .seta:hover {
+      background: rgba(255,255,255,1);
+    }
+
+    .seta.esquerda {left: 10px;}
+    .seta.direita {right: 10px;}
+
+    @media(max-width:900px){
+      .produto-container{flex-direction:column;align-items:center;text-align:center;}
+      .carrossel{width:320px;}
+      .produto-info{align-items:center;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">SmartPoint</div>
+    <a class="voltar" href="lançamentos.html">← Voltar</a>
+  </header>
+
+  <section class="produto-container">
+    <div class="produto-info">
+      <h1>Xiaomi 13T Pro</h1>
+      <p class="descricao">
+        O Xiaomi 13T Pro combina desempenho de ponta com câmeras Leica e design sofisticado. Equipado com o potente chip MediaTek Dimensity 9200+, tela AMOLED de 6,67" com taxa de atualização de 144Hz e bateria de 5000mAh com carregamento rápido de 120W, é ideal para quem busca performance e qualidade fotográfica.
+      </p>
+      <p class="preco" id="preco">R$ 6.499,00</p>
+
+      <div class="cores">
+        <span>Escolha a cor:</span>
+        <div class="cor ativa" data-cor="azul" style="background: linear-gradient(180deg,#4a90e2,#7db9e8);"></div>
+        <div class="cor" data-cor="preto" style="background: linear-gradient(180deg,#000000,#434343);"></div>
+        <div class="cor" data-cor="verde" style="background: linear-gradient(180deg,#4caf50,#81c784);"></div>
+      </div>
+
+      <div class="memorias">
+        <span>Armazenamento:</span>
+        <div class="memoria ativa" data-memoria="256">256 GB</div>
+        <div class="memoria" data-memoria="512">512 GB</div>
+        <div class="memoria" data-memoria="1TB">1 TB</div>
+      </div>
+
+      <button class="botao-comprar"><a href="/xiaomi/comprar-13t-pro.html">Comprar agora</a></button>
+    </div>
+
+    <!-- Carrossel -->
+    <div class="carrossel" id="carrossel">
+      <!-- Azul -->
+      <div class="slides" data-cor="azul">
+        <img class="slide ativo" src="fotos/celulares/venda-cell/13tpro-azul1.png" alt="Xiaomi 13T Pro Azul 1">
+        <img class="slide" src="fotos/celulares/venda-cell/13tpro-azul2.png" alt="Xiaomi 13T Pro Azul 2">
+        <img class="slide" src="fotos/celulares/venda-cell/13tpro-azul3.png" alt="Xiaomi 13T Pro Azul 3">
+        <video class="slide" src="fotos/celulares/venda-cell/videos-venda/13tpro-azul.mp4" autoplay muted loop></video>
+      </div>
+
+      <!-- Preto -->
+      <div class="slides" data-cor="preto" style="display:none;">
+        <img class="slide ativo" src="fotos/celulares/venda-cell/13tpro-preto1.png" alt="Xiaomi 13T Pro Preto 1">
+        <img class="slide" src="fotos/celulares/venda-cell/13tpro-preto2.png" alt="Xiaomi 13T Pro Preto 2">
+        <img class="slide" src="fotos/celulares/venda-cell/13tpro-preto3.png" alt="Xiaomi 13
+::contentReference[oaicite:0]{index=0}
+ 
