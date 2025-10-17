@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Realme Book - SmartPoint</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+{margin:0; padding:0; box-sizing:border-box;}
+body {font-family:'Poppins',sans-serif; background:linear-gradient(180deg,#f6f5fb 0%,#ffffff 100%); color:#111; padding:40px; display:flex; flex-direction:column; align-items:center;}
+header {display:flex; justify-content:space-between; align-items:center; width:100%; max-width:1200px; margin-bottom:40px;}
+.logo {font-weight:700; font-size:1.4rem; background:linear-gradient(90deg,#4b0082,#6f00ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+.voltar {font-size:0.9rem; padding:8px 12px; border-radius:10px; border:1px solid rgba(75,0,130,0.12); background:#fff; text-decoration:none; color:#000; box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+.produto-container {display:flex; justify-content:center; align-items:flex-start; gap:60px; flex-wrap:wrap; width:100%; max-width:1200px;}
+.produto-info {flex:1; display:flex; flex-direction:column; gap:20px; min-width:300px; max-width:500px;}
+.produto-info h1 {font-size:2.2rem; font-weight:700;}
+.descricao {font-size:1rem; color:#444; line-height:1.6;}
+.preco {font-size:1.6rem; font-weight:600; background:linear-gradient(90deg,#4b0082,#6f00ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+.cores, .memorias {margin-top:15px; display:flex; gap:15px; align-items:center; flex-wrap:wrap;}
+.cor {width:36px; height:36px; border-radius:50%; border:2px solid transparent; cursor:pointer; transition:all 0.3s ease;}
+.cor[data-cor="prata"], .cor[data-cor="cinza"] {border:2px solid #fff;}
+.cor:hover {transform:scale(1.15); border:2px solid #4b0082;}
+.cor.ativa {border:3px solid #6f00ff; transform:scale(1.2);}
+.memoria {padding:8px 14px; border-radius:10px; border:2px solid #ccc; cursor:pointer; transition:all 0.3s ease; font-weight:600;}
+.memoria:hover {border-color:#6f00ff; transform:scale(1.05);}
+.memoria.ativa {background:linear-gradient(90deg,#4b0082,#6f00ff); color:#fff; border-color:transparent; transform:scale(1.1);}
+.botao-comprar {margin-top:20px; background:linear-gradient(90deg,#4b0082,#6f00ff); color:#fff; border:none; border-radius:12px; padding:14px 28px; font-size:1.1rem; font-weight:600; cursor:pointer; transition:all 0.3s ease; width:fit-content;}
+.botao-comprar:hover {transform:translateY(-2px); box-shadow:0 6px 20px rgba(111,0,255,0.3);}
+.botao-comprar a {color:#ffffff; text-decoration:none;}
+.carrossel {position:relative; width:400px; max-width:100%; border-radius:20px; overflow:hidden; box-shadow:0 6px 20px rgba(0,0,0,0.1);}
+.slide {display:none; width:100%; border-radius:20px;}
+.slide.ativo {display:block; animation:fadeIn 0.6s ease;}
+@keyframes fadeIn {from{opacity:0; transform:scale(0.98);} to{opacity:1; transform:scale(1);} }
+.seta {position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.8); border:none; font-size:1.6rem; cursor:pointer; padding:8px 12px; border-radius:50%;}
+.seta.esquerda {left:10px;}
+.seta.direita {right:10px;}
+@media(max-width:900px){.produto-container{flex-direction:column; align-items:center;text-align:center;}.carrossel{width:320px;}.produto-info{align-items:center;}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">SmartPoint</div>
+<a class="voltar" href="lançamentos.html">← Voltar</a>
+</header>
+
+<section class="produto-container">
+<div class="produto-info">
+<h1>Realme Book</h1>
+<p class="descricao">Notebook Realme Book, desempenho eficiente, design leve e moderno para uso diário e profissional.</p>
+<p class="preco" id="preco">R$ 4.999,00</p>
+
+<!-- Cores -->
+<div class="cores">
+<span>Cores:</span>
+<div class="cor ativa" data-cor="prata" style="background:#C0C0C0;"></div>
+<div class="cor" data-cor="cinza" style="background:#808080;"></div>
+</div>
+
+<!-- Armazenamento -->
+<div class="memorias">
+<span>Armazenamento:</span>
+<div class="memoria ativa" data-memoria="256">256 GB</div>
+<div class="memoria" data-memoria="512">512 GB</div>
+<div class="memoria" data-memoria="1TB">1 TB</div>
+</div>
+
+<!-- Botão comprar -->
+<button class="botao-comprar"><a href="compra-realmebook.html">Comprar agora</a></button>
+</div>
+
+<!-- Carrossel -->
+<div class="carrossel" id="carrossel">
+<div class="slides" data-cor="prata">
+<img class="slide ativo" src="fotos/computadores/realmebook/prata1.png" alt="Realme Book Prata 1">
+<img class="slide" src="fotos/computadores/realmebook/prata2.png" alt="Realme Book Prata 2">
+</div>
+<div class="slides" data-cor="cinza" style="display:none;">
+<img class="slide ativo" src="fotos/computadores/realmebook/cinza1.png" alt="Realme Book Cinza 1">
+<img class="slide" src="fotos/computadores/realmebook/cinza2.png" alt="Realme Book Cinza 2">
+</div>
+
+<button class="seta esquerda">&#10094;</button>
+<button class="seta direita">&#10095;</button>
+</div>
+</section>
+
+<script>
+const preco = document.getElementById("preco");
+const memorias = document.querySelectorAll(".memoria");
+const cores = document.querySelectorAll(".cor");
+const carrossel = document.getElementById("carrossel");
+const setaEsq = carrossel.querySelector(".seta.esquerda");
+const setaDir = carrossel.querySelector(".seta.direita");
+let corAtual = "prata";
+let slideIndex = 0;
+
+// Preços por armazenamento
+const precos = {256:4999, 512:5499, "1TB":5999};
+
+// Alteração de preço ao selecionar armazenamento
+memorias.forEach(memoria=>{
+  memoria.addEventListener("click",()=>{
+    memorias.forEach(m=>m.classList.remove("ativa"));
+    memoria.classList.add("ativa");
+    preco.textContent = `R$ ${precos[memoria.dataset.memoria].toLocaleString('pt-BR')},00`;
+  });
+});
+
+// Mostrar slides da cor selecionada
+function mostrarCor(cor){
+  document.querySelectorAll(".slides").forEach(slideGroup=>{
+    slideGroup.style.display = slideGroup.dataset.cor===cor?"block":"none";
+    slideGroup.querySelectorAll(".slide").forEach((img,index)=>{
+      img.classList.remove("ativo");
+      if(index===0 && slideGroup.dataset.cor===cor) img.classList.add("ativo");
+    });
+  });
+  corAtual = cor;
+  slideIndex = 0;
+}
+
+// Clique em cor
+cores.forEach(cor=>{
+  cor.addEventListener("click",()=>{
+    cores.forEach(c=>c.classList.remove("ativa"));
+    cor.classList.add("ativa");
+    mostrarCor(cor.dataset.cor);
+  });
+});
+
+// Atualiza slide visível
+function atualizarSlide(){
+  const slides = document.querySelectorAll(`.slides[data-cor="${corAtual}"] .slide`);
+  slides.forEach(s=>s.classList.remove("ativo"));
+  slides[slideIndex].classList.add("ativo");
+}
+
+// Próximo slide
+function proximoSlide(){
+  const slides = document.querySelectorAll(`.slides[data-cor="${corAtual}"] .slide`);
+  slideIndex=(slideIndex+1)%slides.length;
+  atualizarSlide();
+}
+
+// Slide anterior
+function anteriorSlide(){
+  const slides = document.querySelectorAll(`.slides[data-cor="${corAtual}"] .slide`);
+  slideIndex=(slideIndex-1+slides.length)%slides.length;
+  atualizarSlide();
+}
+
+// Botões setas
+setaDir.addEventListener("click",proximoSlide);
+setaEsq.addEventListener("click",anteriorSlide);
+</script>
+</body>
+</html>
