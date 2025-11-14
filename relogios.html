@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lançamentos - SmartPoint | Relógios Inteligentes</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* O CSS (estilo) é mantido exatamente o mesmo para a estrutura funcionar, apenas ajustando o conteúdo */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+font-family:"Poppins",sans-serif;
+background: linear-gradient(180deg,#f6f5fb 0%, #ffffff 100%);
+color:#111;
+padding:24px;
+}
+a{color:inherit;text-decoration:none}
+
+.page{max-width:1200px;margin:0 auto;}
+
+header.simple {
+display:flex;justify-content:space-between;align-items:center;
+margin-bottom:24px;
+}
+.logo {
+font-weight:700;font-size:1.4rem;
+background:linear-gradient(90deg,#4b0082,#6f00ff);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.voltar {
+font-size:0.9rem;padding:8px 12px;border-radius:10px;
+border:1px solid rgba(75,0,130,0.12);background:#fff;
+box-shadow:0 2px 8px rgba(0,0,0,0.04);
+}
+
+.hero {
+background: linear-gradient(90deg, rgba(111,0,255,0.06), rgba(75,0,130,0.04));
+border-radius:14px;padding:22px;margin-bottom:24px;
+display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+
+.filtros {
+display:flex;gap:12px;align-items:center;
+margin:18px 0;flex-wrap:wrap;
+}
+.filtro-btn {
+padding:8px 12px;border-radius:999px;
+background:#fff;border:1px solid rgba(0,0,0,0.06);
+cursor:pointer;font-weight:600;transition:all .2s ease;
+}
+.filtro-btn:hover {
+box-shadow:0 0 10px rgba(111,0,255,0.15);
+transform:translateY(-2px);
+}
+.filtro-btn.active {
+background:linear-gradient(90deg,#4b0082,#6f00ff);
+color:#fff;border-color:transparent;
+box-shadow:0 6px 18px rgba(111,0,255,0.08);
+}
+
+.marca {
+margin-bottom:28px;background:#fff;border-radius:14px;padding:16px;
+box-shadow:0 10px 30px rgba(20,20,30,0.04);
+border:1px solid rgba(0,0,0,0.03);
+}
+
+.marca h2 {
+display: flex;
+align-items: center;
+gap: 12px;
+font-size: 1.6rem;
+margin-bottom: 18px;
+font-weight: 700;
+}
+
+.marca h2 img {
+width: 48px;
+height: 48px;
+object-fit: contain;
+filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.marca-conteudo {
+display: flex;
+gap: 14px;
+}
+
+.produtos-grid {
+display:grid;
+grid-template-columns:repeat(3,1fr);
+flex-grow: 1;
+gap:14px;
+}
+
+.produto {
+background:linear-gradient(180deg,rgba(255,255,255,0.95),#ffffff);
+border-radius:12px;padding:12px;
+display:flex;flex-direction:column;
+align-items:center;text-align:center;gap:10px;
+border:1px solid rgba(0,0,0,0.04);
+transition:transform .25s ease, box-shadow .25s ease;
+}
+
+.produto:hover {
+transform:translateY(-8px);
+box-shadow:0 20px 40px rgba(30,20,60,0.06);
+}
+
+.produto img {
+/* Ajuste de altura e estilo para relógios */
+width:100%;height:140px;object-fit:contain;border-radius:8px;
+background:linear-gradient(180deg,#f8f8fb,#fff);padding:8px;
+}
+
+.produto a:hover h3 {
+text-decoration: underline;
+}
+
+.preco-produto {
+font-size: 1.1rem;
+font-weight: 700;
+color: #6f00ff;
+margin-top: -5px;
+}
+
+.produto p {
+font-size: 0.9rem;
+margin-top: -5px;
+}
+
+.ver-mais-box {
+background: #f8f8fb;
+border: 1px dashed rgba(75,0,130,0.2);
+border-radius: 12px;
+min-width: 150px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+padding: 15px;
+transition: all .25s ease;
+}
+
+.ver-mais-box:hover {
+background: #fff;
+border: 1px solid #6f00ff;
+box-shadow: 0 4px 15px rgba(111,0,255,0.1);
+transform: translateY(-2px);
+}
+
+.ver-mais-box h3 {
+color: #6f00ff;
+font-weight: 700;
+font-size: 1rem;
+margin-top: 10px;
+}
+
+.ver-mais-box span {
+font-size: 2rem;
+color: #4b0082;
+}
+
+@media(max-width:980px){
+.marca-conteudo { flex-direction: column; }
+.produtos-grid{grid-template-columns:repeat(2,1fr);}
+.ver-mais-box { min-width: auto; height: 100px; }
+}
+@media(max-width:620px){.produtos-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<header class="simple">
+<div class="logo">SmartPoint</div>
+<div><a class="voltar" href="index.html">← Voltar à página inicial</a></div>
+</header>
+
+<section class="hero">
+<div class="left">
+<h1>Lançamentos — Relógios Inteligentes</h1>
+<p>Últimos modelos de smartwatches e pulseiras fitness por marca.</p>
+</div>
+</section>
+
+<div class="filtros">
+<button class="filtro-btn active" data-filter="todos">Todos</button>
+<button class="filtro-btn" data-filter="apple">Apple</button>
+<button class="filtro-btn" data-filter="samsung">Samsung</button>
+<button class="filtro-btn" data-filter="xiaomi">Xiaomi</button>
+<button class="filtro-btn" data-filter="garmin">Garmin</button>
+<button class="filtro-btn" data-filter="huawei">Huawei</button>
+</div>
+
+<section class="marca" id="apple">
+<h2><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg">Apple</h2>
+
+<div class="marca-conteudo">
+<div class="produtos-grid">
+
+<div class="produto">
+<a href="https://lista.mercadolivre.com.br/apple-watch-ultra-3" target="_blank">
+<img src="fotos/relogios/venda-relogio/apple-watch-ultra-3.png">
+<h3>Apple Watch Ultra 3</h3>
+<p class="preco-produto">R$ 6.999,00</p>
+<p>O mais robusto para aventuras.</p>
+</a>
+</div>
+
+<div class="produto">
+<a href="https://lista.mercadolivre.com.br/apple-watch-series-10" target="_blank">
+<img src="fotos/relogios/venda-relogio/apple-watch-series-10.png">
+<h3>Apple Watch Series 10</h3>
+<p class="preco-produto">R$ 4.499,00</p>
+<p>Sensores avançados e elegância.</p>
+</a>
+</div>
+
+<div class="produto">
+<a href="https://lista.mercadolivre.com.br/apple-watch-se-2" target="_blank">
+<img src="fotos/relogios/venda-relogio/apple-watch-se-2.png">
+<h3>Apple Watch SE (2ª Gen)</h3>
+<p class="preco-produto">R$ 2.999,00</p>
+<p>Ótimo custo-benefício Apple.</p>
+</a>
+</div>
+
+</div>
+
+<a class="ver-mais-box" href="https://lista.mercadolivre.com.br/apple-watch" target="_blank">
+<span>→</span>
+<h3>Ver todos os Apple Watches do nosso fornecedor</h3>
+</a>
+</div>
+</section>
+
+<section class="marca" id="samsung">
+<h2><img src="fotos/logos/samsung-logo-0.png">Samsung</h2>
+
+<div class="marca-conteudo">
+<div class="produtos-grid">
+
+<div class="produto">
+<a href="https://lista.mercadolivre.com.br/galaxy-watch-7-ultra" target="_blank">
+<img src="fotos/relogios/venda-relogio/galaxy-watch-7-ultra.png">
+<h3>Galaxy Watch 7 Ultra</h3>
+<p class="preco-produto">R$ 2.899,00</p>
+<p>O mais avançado, com IA.</p>
+</a>
+</div>
+
+<div class="produto">
+<a href="https://lista.mercadolivre.com.br/galaxy-watch-6-classic" target="_blank">
+<img src="fotos/relogios/venda-relogio/galaxy-watch-6-classic.png">
+<h3>Galaxy Watch 6 Classic</h3>
+<p class="preco-produto">R$ 1.999,00</p>
+<p>Coroa giratória e design clássico.</p>
+</a>
+</div>
+
+<div class="produto">
+<a href="https://lista.mercadolivre.com.br/galaxy-watch-5" target="_blank">
+<img src="fotos/relogios/venda-relogio/galaxy-watch-5.png">
+<h3>Galaxy Watch 5</h3>
+<p class="preco-produto">R$ 1.299,00</p>
+<p>Durabilidade e bom desempenho.</p>
+</a>
+</div>
+
+</div>
+
+<a class="ver-mais-box" href="https://lista.mercadolivre.com.br/galaxy-watch" target="_blank">
+<span>→</span>
+<h3>Ver todos os Galaxy Watches do nosso fornecedor</h3>
+</a>
+</div>
+</section>
+
+<section class="marca" id="xiaomi">
+<h2><img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Xiaomi_logo.svg">Xiaomi</h2>
+
+<div class="marca-conteudo">
+<div class="produtos-grid">
+
+<div class="produto">
+<a href="https://lista.mercadolivre.com.br/xiaomi-watch-2-pro" target="_blank">
+<img src="fotos/relogios/venda-relogio/xiaomi-watch-2-pro.png">
+<h3>Xiaomi Watch 2 Pro</h3>
+<p class="preco-produto">R$ 1.399,00</p>
+<p>Elegância e Wear OS.</p>
+</a>
+</div>
+
+<div class="produto">
+<a href="https://lista.mercadolivre.com.br/xiaomi-band-8" target="_blank">
+<img src="fotos/relogios/venda-relogio/xiaomi-band-8.png">
+<h3>Xiaomi Band 8</h3>
+<p class="preco-produto">R$ 299,00</p>
+<p>Pulseira fitness mais popular.</p>
+</a>
+</div>
+
+<div class="produto">
+<a href="https://lista.mercadolivre.com.br/xiaomi-watch-s3" target="_blank">
+<img src="fotos/relogios/venda-relogio/xiaomi-watch-s3.png">
+<h3>Xiaomi Watch S3</h3>
+<p class="preco-produto">R$ 799,00</p>
+<p>Bateria duradoura e leve.</p>
+</a>
+</div>
+
+</div>
+
+<a class="ver-mais-box" href="https://lista.mercadolivre.com.br/relogio-xiaomi" target="_blank">
+<span>→</span>
+<h3>Ver todos os Relógios Xiaomi do nosso fornecedor</h3>
+</a>
+</div>
+</section>
+
+<section class="marca" id="garmin">
+<h2><img src="fotos/logos/Garmin_logo.png">Garmin</h2>
+
+<div class="marca-conteudo">
+<div class="produtos-grid">
+
+<div class="produto">
+<a href="https://lista.mercadolivre.com.br/garmin-fenix-7x-pro" target="_blank">
+<img src="fotos/relogios/venda-relogio/garmin-fenix-7x-pro.png">
+<h3>Garmin Fenix 7X Pro</h3>
+<p class="preco-produto">R$ 7.999,00</p>
+<p>GPS e bateria insuperáveis.</p>
+</a>
+</div>
+
+<div class="produto">
+<a href="https://lista.mercadolivre.com.br/garmin-venu-3" target="_blank">
+<img src="fotos/relogios/venda-relogio/garmin-venu-3.png">
+<h3>Garmin Venu 3</h3>
+<p class="preco-produto">R$ 3.299,00</p>
+<p>Foco em saúde e tela AMOLED.</p>
+</a>
+</div>
+
+<div class="produto">
+<a href="https://lista.mercadolivre.com.br/garmin-forerunner-55" target="_blank">
+<img src="fotos/relogios/venda-relogio/garmin-forerunner-55.png">
+<h3>Garmin Forerunner 55</h3>
+<p class="preco-produto">R$ 1.499,00</p>
+<p>O essencial para corredores.</p>
+</a>
+</div>
+
+</div>
+
+<a class="ver-mais-box" href="https://lista.mercadolivre.com.br/relogio-garmin" target="_blank">
+<span>→</span>
+<h3>Ver todos os Relógios Garmin do nosso fornecedor</h3>
+</a>
+</div>
+</section>
+
+<section class="marca" id="huawei">
+<h2><img src="fotos/logos/Huawei_logo.png">Huawei</h2>
+
+<div class="marca-conteudo">
+<div class="produtos-grid">
+
+<div class="produto">
+<a href="https://lista.mercadolivre.com.br/huawei-watch-gt-4" target="_blank">
+<img src="fotos/relogios/venda-relogio/huawei-watch-gt-4.png">
+<h3>Huawei Watch GT 4</h3>
+<p class="preco-produto">R$ 1.499,00</p>
+<p>Bateria de duas semanas.</p>
+</a>
+</div>
+
+<div class="produto">
+<a href="https://lista.mercadolivre.com.br/huawei-watch-fit-3" target="_blank">
+<img src="fotos/relogios/venda-relogio/huawei-watch-fit-3.png">
+<h3>Huawei Watch Fit 3</h3>
+<p class="preco-produto">R$ 699,00</p>
+<p>Leve, fino e ótimo para fitness.</p>
+</a>
+</div>
+
+<div class="produto">
+<a href="https://lista.mercadolivre.com.br/huawei-band-8" target="_blank">
+<img src="fotos/relogios/venda-relogio/huawei-band-8.png">
+<h3>Huawei Band 8</h3>
+<p class="preco-produto">R$ 249,00</p>
+<p>Pulseira fina e elegante.</p>
+</a>
+</div>
+
+</div>
+
+<a class="ver-mais-box" href="https://lista.mercadolivre.com.br/relogio-huawei" target="_blank">
+<span>→</span>
+<h3>Ver todos os Relógios Huawei do nosso fornecedor</h3>
+</a>
+</div>
+</section>
+
+</div>
+
+<script>
+const botoes = document.querySelectorAll('.filtro-btn');
+const marcas = document.querySelectorAll('.marca');
+
+botoes.forEach(btn => {
+btn.addEventListener('click', () => {
+botoes.forEach(b => b.classList.remove('active'));
+btn.classList.add('active');
+const filtro = btn.dataset.filter;
+marcas.forEach(sec => {
+sec.style.display = (filtro === 'todos' || sec.id === filtro) ? 'block' : 'none';
+});
+});
+});
+</script>
+
+</body>
+</html>
